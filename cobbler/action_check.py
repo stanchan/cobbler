@@ -251,22 +251,35 @@ class BootCheck:
 
     def check_httpd(self, status):
         """
-        Check if Apache is installed.
+        Check if Apache or Nginx is installed.
         """
-        if self.checked_dist in (
-            "redhat",
-            "red hat enterprise linux server",
-            "fedora",
-            "centos",
-            "scientific linux"
-        ):
-            rc = utils.subprocess_get(self.logger, "httpd -v")
-        elif self.checked_dist == "suse" or self.checked_dist == "opensuse":
-            rc = utils.subprocess_get(self.logger, "httpd2 -v")
+        if os.path.exists("/etc/nginx/nginx.conf"):
+            httpd_server = "nginx"
         else:
-            rc = utils.subprocess_get(self.logger, "apache2 -v")
-        if rc.find("Server") == -1:
-            status.append("Apache (httpd) is not installed and/or in path")
+            httpd_server = "apache"
+
+        if httpd_server == "nginx":
+            rc = utils.subprocess_get(self.logger, "nginx -v")
+        else:
+            if self.checked_dist in (
+                "redhat",
+                "red hat enterprise linux server",
+                "fedora",
+                "centos",
+                "scientific linux"
+            ):
+                rc = utils.subprocess_get(self.logger, "apache d-v")
+            elif self.checked_dist == "suse" or self.checked_dist == "opensuse":
+                rc = utils.subprocess_get(self.logger, "httpd2 -v")
+            else:
+                rc = utils.subprocess_get(self.logger, "apache2 -v")
+        if httpd_server == "nginx":
+            if rc.find("nginx") == -1:
+                status.append("Nginx (nginx) is not installed and/or in path")
+        else:
+            if rc.find("Server") == -1:
+                status.append("Apache (httpd) is not installed and/or in path")
+
 
 
     def check_dhcpd_bin(self, status):

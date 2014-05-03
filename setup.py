@@ -537,6 +537,11 @@ if __name__ == "__main__":
         webroot     = "/srv/www/"
         http_user   = "www-data"
         defaultpath = "/etc/default/"
+    elif os.path.exists("/etc/nginx/nginx.conf"):
+        webconfig  = "/etc/nginx/conf.d"
+        webroot     = "/usr/share/nginx/html/"
+        http_user   = "nginx"
+        defaultpath = "/etc/sysconfig/"
     else:
         webconfig  = "/etc/httpd/conf.d"
         webroot     = "/var/www/"

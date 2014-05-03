@@ -62,6 +62,8 @@ def regen_ss_file():
         http_user = "www-data"
     elif utils.check_dist() in ["suse", "opensuse"]:
         http_user = "wwwrun"
+    elif os.path.exists("/etc/nginx/nginx.conf"):
+        http_user = "nginx"
     os.lchown("/var/lib/cobbler/web.ss", pwd.getpwnam(http_user)[2], -1)
 
     return 1

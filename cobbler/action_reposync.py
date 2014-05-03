@@ -575,6 +575,8 @@ class RepoSync:
         owner = "root:apache"
         if os.path.exists("/etc/SuSE-release"):
             owner = "root:www"
+        elif os.path.exists("/etc/nginx/nginx.conf"):
+            owner = "root:nginx"
 
         cmd1 = "chown -R " + owner + " %s" % repo_path
 
