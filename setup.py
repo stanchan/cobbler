@@ -469,6 +469,7 @@ class restorestate(statebase):
             return
         self._copy(os.path.join(self.statepath, 'config'), libpath)
         self._copy(os.path.join(self.statepath, 'cobbler_web.conf'), webconfig)
+        self._copy(os.path.join(self.statepath, 'cobbler_nginx.conf'), webconfig)
         self._copy(os.path.join(self.statepath, 'cobbler.conf'), webconfig)
         self._copy(os.path.join(self.statepath, 'modules.conf'), etcpath)
         self._copy(os.path.join(self.statepath, 'settings'), etcpath)
@@ -500,6 +501,7 @@ class savestate(statebase):
             os.makedirs(self.statepath)
         self._copy(os.path.join(libpath, 'config'), self.statepath)
         self._copy(os.path.join(webconfig, 'cobbler_web.conf'), self.statepath)
+        self._copy(os.path.join(webconfig, 'cobbler_nginx.conf'), self.statepath)
         self._copy(os.path.join(webconfig, 'cobbler.conf'), self.statepath)
         self._copy(os.path.join(etcpath, 'modules.conf'), self.statepath)
         self._copy(os.path.join(etcpath, 'settings'), self.statepath)
@@ -599,6 +601,7 @@ if __name__ == "__main__":
             "config/settings",
             "config/cobbler.conf",
             "config/cobbler_web.conf",
+            "config/cobbler_nginx.conf",
             "config/cobblerd.service",
             "config/cobblerd"
         ],
@@ -613,6 +616,7 @@ if __name__ == "__main__":
 
             ("%s" % webconfig,              ["build/config/cobbler.conf"]),
             ("%s" % webconfig,              ["build/config/cobbler_web.conf"]),
+            ("%s" % webconfig,              ["build/config/cobbler_nginx.conf"]),
             ("%s" % initpath,               ["build/config/cobblerd"]),
             ("%s" % docpath,                glob("build/docs/man/*.1.gz")),
             ("%skickstarts" % libpath,      glob("kickstarts/*")),
@@ -632,6 +636,7 @@ if __name__ == "__main__":
             #Configuration
             ("%s" % etcpath,                ["build/config/cobbler.conf",
                                              "build/config/cobbler_web.conf",
+                                             "build/config/cobbler_nginx.conf",
                                              "build/config/cobblerd",
                                              "build/config/cobblerd.service",
                                              "build/config/settings"]),
