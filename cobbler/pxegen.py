@@ -117,11 +117,7 @@ class PXEGen:
         if os.path.isdir(os.path.join(self.bootloc, 'boot')):
             shutil.rmtree(os.path.join(self.bootloc, 'boot'))
         for i in self.distros:
-<<<<<<< HEAD
             if 'nexenta' == i.breed and not pxegrub_imported:
-=======
-            if 'nexenta' == i.breed and not pxegrub_imported:                
->>>>>>> d41b9294a73942a9583985f9d266058e38c8810d
                 #name_without_arch = i.name[:-7] # removing -x86_64 from the fin on the string.
                 shutil.copytree(os.path.join('/var', 'www', 'cobbler', 'ks_mirror', i.name, 'boot'),
                                 os.path.join(self.bootloc, 'boot'))
@@ -246,11 +242,7 @@ class PXEGen:
             return
 
         pxe_metadata = {'pxe_menu_items': menu_items}
-<<<<<<< HEAD
 
-=======
- 
->>>>>>> d41b9294a73942a9583985f9d266058e38c8810d
         # generate one record for each described NIC ..
         for (name, interface) in system.interfaces.iteritems():
 
